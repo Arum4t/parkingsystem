@@ -1,13 +1,13 @@
 -------------------------------------------------------------------------------
 Test set: com.parkit.parkingsystem.integration.ParkingDataBaseIT
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 1.353 s <<< FAILURE! - in com.parkit.parkingsystem.integration.ParkingDataBaseIT
-testParkingACar  Time elapsed: 0.06 s  <<< ERROR!
-org.mockito.exceptions.misusing.UnnecessaryStubbingException: 
+Tests run: 2, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 1.373 s <<< FAILURE! - in com.parkit.parkingsystem.integration.ParkingDataBaseIT
+testParkingLotExit  Time elapsed: 0.918 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <com.parkit.parkingsystem.model.Ticket@7f3aa737> but was: <null>
+	at com.parkit.parkingsystem.integration.ParkingDataBaseIT.testParkingACar(ParkingDataBaseIT.java:63)
+	at com.parkit.parkingsystem.integration.ParkingDataBaseIT.testParkingLotExit(ParkingDataBaseIT.java:72)
 
-Unnecessary stubbings detected.
-Clean & maintainable test code requires zero unnecessary code.
-Following stubbings are unnecessary (click to navigate to relevant line of code):
-  1. -> at com.parkit.parkingsystem.integration.ParkingDataBaseIT.setUpPerTest(ParkingDataBaseIT.java:41)
-Please remove unnecessary stubbings or use 'lenient' strictness. More info: javadoc for UnnecessaryStubbingException class.
+testParkingACar  Time elapsed: 0.06 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <com.parkit.parkingsystem.model.Ticket@61427cd3> but was: <null>
+	at com.parkit.parkingsystem.integration.ParkingDataBaseIT.testParkingACar(ParkingDataBaseIT.java:63)
 
