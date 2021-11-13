@@ -69,7 +69,7 @@ public class ParkingDataBaseIT {
         // WHEN
         parkingService.processExitingVehicle();
         // THEN
-        assertEquals(1,ticketDAO.getTicket("ABCDEF").getParkingSpot().getId());
+        Assertions.assertTrue(dataBasePrepareService.checkPriceAndTime("ABCDEF"));
 
     }
 

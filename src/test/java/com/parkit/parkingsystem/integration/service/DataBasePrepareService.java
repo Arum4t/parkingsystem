@@ -51,7 +51,7 @@ public class DataBasePrepareService {
     public boolean slotAvailable(final int parkingNumber) {
         try (Connection connection = dataBaseTestConfig.getConnection()) {
             final PreparedStatement ps = connection.prepareStatement(
-                    "select * from parking where PARKING_NUMBER = ?;"
+                    "SELECT * FROM parking where PARKING_NUMBER = ?;"
             );
             ps.setInt(1, parkingNumber);
             final ResultSet rs = ps.executeQuery();
@@ -61,6 +61,25 @@ public class DataBasePrepareService {
                 throw new NoSuchElementException("Empty ResultSet");
             }
         } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean checkPriceAndTime(String parkingNumber) {
+        try (Connection connection = dataBaseTestConfig.getConnection()) {
+            final PreparedStatement ps = connection.prepareStatement(
+                    "SELECT COUNT(*) as quantity FROM ticket " +
+                            "where VEHICLE_REG_NUMBER = ? " +
+                            "and price is not null " +
+                            "and out_time is not null;");
+            ps.setString(1, parkingNumber);
+            final ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("quantity") > 0;
+            } else {
+                throw new NoSuchElementException("Empty ResultSet");
+            }
+        }catch(Exception e){
             e.printStackTrace();
             return false;
         }
