@@ -14,8 +14,8 @@ public class FareCalculatorService {
         long inTime = ticket.getInTime().getTime();
         long outTime = ticket.getOutTime().getTime();
 
-       double durationTime = (double) outTime - (double) inTime;
-       double duration = ((durationTime / 1000)/60/60);
+        double durationTime = (double) outTime - (double) inTime;
+        double duration = ((durationTime / 1000)/60/60);
 
         if (duration < 0.5) {
             ticket.setPrice(0);
