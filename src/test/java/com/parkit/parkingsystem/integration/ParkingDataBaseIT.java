@@ -52,11 +52,11 @@ public class ParkingDataBaseIT {
         //TODO: check that a ticket is actualy saved in DB and Parking table is updated with availability
         // GIVEN
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
-        Ticket ticket = new Ticket();
         // WHEN
         parkingService.processIncomingVehicle();
         // THEN
-        assertEquals(ticket, ticketDAO.getTicket("ABCDEF"));
+        Assertions.assertTrue(dataBasePrepareService.ticketExistsForVehicleRegNumber("ABCDEF"));
+        Assertions.assertFalse(dataBasePrepareService.slotAvailable(1));
     }
 
     @Test
