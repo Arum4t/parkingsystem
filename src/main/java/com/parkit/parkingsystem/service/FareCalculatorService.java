@@ -28,7 +28,7 @@ public class FareCalculatorService {
                 default:
                     throw new IllegalArgumentException("Unknown Parking Type");
             }
-            ticket.setPrice(duration * rate);
+            ticket.setPrice(duration * rate * (1-0.01*ticket.getDiscount()));
         }
     }
 }
