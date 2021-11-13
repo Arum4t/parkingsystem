@@ -51,7 +51,7 @@ public class DataBasePrepareService {
     public boolean slotAvailable(final int parkingNumber) {
         try (Connection connection = dataBaseTestConfig.getConnection()) {
             final PreparedStatement ps = connection.prepareStatement(
-                    "SELECT * FROM parking where PARKING_NUMBER = ?;"
+                    "select * from parking where PARKING_NUMBER = ?;"
             );
             ps.setInt(1, parkingNumber);
             final ResultSet rs = ps.executeQuery();
@@ -68,10 +68,7 @@ public class DataBasePrepareService {
     public boolean checkPriceAndTime(String parkingNumber) {
         try (Connection connection = dataBaseTestConfig.getConnection()) {
             final PreparedStatement ps = connection.prepareStatement(
-                    "SELECT COUNT(*) as quantity FROM ticket " +
-                            "where VEHICLE_REG_NUMBER = ? " +
-                            "and price is not null " +
-                            "and out_time is not null;");
+                    "select count (*) as quantity from ticket" + "where VEHICLE_REG_NUMBER=?" + "and price is not null" + "and out_time is not null;");
             ps.setString(1, parkingNumber);
             final ResultSet rs = ps.executeQuery();
             if (rs.next()) {

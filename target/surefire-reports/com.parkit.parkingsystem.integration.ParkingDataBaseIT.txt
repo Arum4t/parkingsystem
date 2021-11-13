@@ -1,13 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.parkit.parkingsystem.integration.ParkingDataBaseIT
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 1.373 s <<< FAILURE! - in com.parkit.parkingsystem.integration.ParkingDataBaseIT
-testParkingLotExit  Time elapsed: 0.918 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: expected: <com.parkit.parkingsystem.model.Ticket@7f3aa737> but was: <null>
-	at com.parkit.parkingsystem.integration.ParkingDataBaseIT.testParkingACar(ParkingDataBaseIT.java:63)
+Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.74 s <<< FAILURE! - in com.parkit.parkingsystem.integration.ParkingDataBaseIT
+testParkingLotExit  Time elapsed: 1.14 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
 	at com.parkit.parkingsystem.integration.ParkingDataBaseIT.testParkingLotExit(ParkingDataBaseIT.java:72)
-
-testParkingACar  Time elapsed: 0.06 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: expected: <com.parkit.parkingsystem.model.Ticket@61427cd3> but was: <null>
-	at com.parkit.parkingsystem.integration.ParkingDataBaseIT.testParkingACar(ParkingDataBaseIT.java:63)
 
