@@ -59,6 +59,8 @@ public class Ticket {
     public void setOutTime(Date outTime) {
         this.outTime = outTime;
     }
+
     public int getDiscount() {return this.discount;}
+
     public void setDiscount(int discount) {this.discount = discount;}
 }
