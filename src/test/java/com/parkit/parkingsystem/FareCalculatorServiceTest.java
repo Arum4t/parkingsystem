@@ -123,4 +123,35 @@ public class FareCalculatorServiceTest {
         fareCalculatorService.calculateFare(ticket);
         assertEquals( (24 * Fare.CAR_RATE_PER_HOUR) , ticket.getPrice());
     }
+    @Test
+    void calculateFareVehicleWithLessThanThirtyMinutesParkingTime() {
+        Date inTime = new Date();
+        inTime.setTime(System.currentTimeMillis() - (28 * 60 * 1000));
+        Date outTime = new Date();
+        ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
+
+        ticket.setInTime(inTime);
+        ticket.setOutTime(outTime);
+        ticket.setParkingSpot(parkingSpot);
+        fareCalculatorService.calculateFare(ticket);
+        assertEquals(0, ticket.getPrice());
+    }
+
+    @Test
+    void calculateFivePerCentDiscountForRecurringUsers() throws Exception {
+        int hours = 1;
+        int discount = 5;
+        Date inTime = new Date();
+        inTime.setTime(System.currentTimeMillis() - 60 * 60 * 1000 * hours);
+        Date outTime = new Date();
+        ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
+
+        ticket.setVehicleRegNumber("GHIJKL");
+        ticket.setInTime(inTime);
+        ticket.setOutTime(outTime);
+        ticket.setParkingSpot(parkingSpot);
+        ticket.setDiscount(discount);
+        fareCalculatorService.calculateFare(ticket);
+        assertEquals((hours * Fare.CAR_RATE_PER_HOUR * (1 - 0.01 * discount)), ticket.getPrice());
+    }
 }
