@@ -72,6 +72,5 @@ public class ParkingDataBaseIT {
         Assertions.assertNotNull(ticketFareAndTimeNotNull.getOutTime());
 
     }
-
 }
 
