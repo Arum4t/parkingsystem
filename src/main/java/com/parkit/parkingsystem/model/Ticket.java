@@ -10,7 +10,7 @@ public class Ticket {
     private double price;
     private Date inTime;
     private Date outTime;
-    private int discount;
+    private double discount;
 
     public int getId() {
         return id;
@@ -60,7 +60,7 @@ public class Ticket {
         this.outTime = outTime;
     }
 
-    public int getDiscount() {return this.discount;}
+    public double getDiscount() {return this.discount;}
 
-    public void setDiscount(int discount) {this.discount = discount;}
+    public void setDiscount(double discount) {this.discount = discount;}
 }

@@ -31,12 +31,12 @@ public class ParkingService {
         try{
             ParkingSpot parkingSpot = getNextParkingNumberIfAvailable();
             if(parkingSpot !=null && parkingSpot.getId() > 0){
-                final String vehicleRegNumber = getVehicleRegNumber();
-                final int oldTicketsNumber = ticketDAO.countAlreadyExistVehicleRegNumber(vehicleRegNumber);
+                String vehicleRegNumber = getVehichleRegNumber();
+                Ticket oldTicketsNumber = ticketDAO.getTicket(vehicleRegNumber);
                 parkingSpot.setAvailable(false);
                 parkingSpotDAO.updateParking(parkingSpot);//allot this parking space and mark it's availability as false
-                final Date inTime = new Date();
-                final Ticket ticket = new Ticket();
+                Date inTime = new Date();
+                Ticket ticket = new Ticket();
                 //ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
                 //ticket.setId(ticketID);
                 ticket.setParkingSpot(parkingSpot);
@@ -44,10 +44,10 @@ public class ParkingService {
                 ticket.setPrice(0);
                 ticket.setInTime(inTime);
                 ticket.setOutTime(null);
-                ticket.setDiscount((oldTicketsNumber >0 ) ? 5 : 0);
+                ticket.setDiscount(oldTicketsNumber == null ? 0 : 0.95);
                 ticketDAO.saveTicket(ticket);
                 System.out.println("Generated Ticket and saved in DB");
-                if (oldTicketsNumber >0){
+                if (oldTicketsNumber != null){
                     System.out.println("As recurring user you'll benefit from a 5% discount.");}
                 System.out.println("Please park your vehicle in spot number:"+parkingSpot.getId());
                 System.out.println("Recorded in-time for vehicle number:"+vehicleRegNumber+" is:"+inTime);
@@ -57,7 +57,7 @@ public class ParkingService {
         }
     }
 
-    private String getVehicleRegNumber() throws Exception {
+    private String getVehichleRegNumber() throws Exception {
         System.out.println("Please type the vehicle registration number and press enter key");
         return inputReaderUtil.readVehicleRegistrationNumber();
     }
@@ -66,7 +66,7 @@ public class ParkingService {
         int parkingNumber=0;
         ParkingSpot parkingSpot = null;
         try{
-            ParkingType parkingType = getVehicleType();
+            ParkingType parkingType = getVehichleType();
             parkingNumber = parkingSpotDAO.getNextAvailableSlot(parkingType);
             if(parkingNumber > 0){
                 parkingSpot = new ParkingSpot(parkingNumber,parkingType, true);
@@ -81,7 +81,7 @@ public class ParkingService {
         return parkingSpot;
     }
 
-    private ParkingType getVehicleType(){
+    private ParkingType getVehichleType(){
         System.out.println("Please select vehicle type from menu");
         System.out.println("1 CAR");
         System.out.println("2 BIKE");
@@ -102,7 +102,7 @@ public class ParkingService {
 
     public void processExitingVehicle() {
         try{
-            String vehicleRegNumber = getVehicleRegNumber();
+            String vehicleRegNumber = getVehichleRegNumber();
             Ticket ticket = ticketDAO.getTicket(vehicleRegNumber);
             Date outTime = new Date();
             ticket.setOutTime(outTime);
