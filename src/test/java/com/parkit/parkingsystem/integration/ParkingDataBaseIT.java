@@ -69,9 +69,8 @@ public class ParkingDataBaseIT {
         Thread.sleep(2000);
         parkingService.processExitingVehicle();
         Ticket ticketFareAndTimeNotNull = ticketDAO.getTicket("ABCDEF");
-        Assertions.assertNotNull(ticketFareAndTimeNotNull.getPrice());
         Assertions.assertNotNull(ticketFareAndTimeNotNull.getOutTime());
-
+        Assertions.assertNotEquals(0.0, ticketFareAndTimeNotNull.getPrice());
     }
 
 }
