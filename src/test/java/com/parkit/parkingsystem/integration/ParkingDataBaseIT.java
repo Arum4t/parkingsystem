@@ -13,6 +13,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -60,14 +62,15 @@ public class ParkingDataBaseIT {
     }
 
     @Test
-    public void testParkingLotExit(){
-
+    public void testParkingLotExit() throws InterruptedException {
         //TODO: check that the fare generated and out time are populated correctly in the database
-
         testParkingACar();
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+        Thread.sleep(2000);
         parkingService.processExitingVehicle();
-
+        Ticket ticketFareAndTimeNotNull = ticketDAO.getTicket("ABCDEF");
+        Assertions.assertNotNull(ticketFareAndTimeNotNull.getOutTime());
+        Assertions.assertNotEquals(0.0, ticketFareAndTimeNotNull.getPrice());
     }
 
 }
