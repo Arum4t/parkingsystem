@@ -52,7 +52,6 @@ public class ParkingDataBaseIT {
 
     @Test
     public void testParkingACar() {
-        //TODO: check that a ticket is actualy saved in DB and Parking table is updated with availability
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processIncomingVehicle();
         TicketDAO ticket = new TicketDAO();
@@ -63,7 +62,6 @@ public class ParkingDataBaseIT {
 
     @Test
     public void testParkingLotExit() throws InterruptedException {
-        //TODO: check that the fare generated and out time are populated correctly in the database
         testParkingACar();
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processExitingVehicle();
