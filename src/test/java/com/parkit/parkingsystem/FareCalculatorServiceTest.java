@@ -57,7 +57,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareUnkownType(){
+    public void calculateFareUnknownType(){
         Date inTime = new Date();
         inTime.setTime( System.currentTimeMillis() - (  60 * 60 * 1000) );
         Date outTime = new Date();
@@ -93,7 +93,7 @@ public class FareCalculatorServiceTest {
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
-        assertEquals((0.75 * Fare.BIKE_RATE_PER_HOUR), ticket.getPrice() );
+        assertEquals((Math.round((0.75 * Fare.BIKE_RATE_PER_HOUR) * 100.0) / 100.0), ticket.getPrice() );
     }
 
     @Test
@@ -107,7 +107,7 @@ public class FareCalculatorServiceTest {
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
-        assertEquals( (0.75 * Fare.CAR_RATE_PER_HOUR) , ticket.getPrice());
+        assertEquals((Math.round((0.75 * Fare.CAR_RATE_PER_HOUR) * 100.0) / 100.0), ticket.getPrice() );
     }
 
     @Test
@@ -121,7 +121,7 @@ public class FareCalculatorServiceTest {
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
-        assertEquals( (24 * Fare.CAR_RATE_PER_HOUR) , ticket.getPrice());
+        assertEquals((Math.round((24 * Fare.CAR_RATE_PER_HOUR) * 100.0) / 100.0) , ticket.getPrice());
     }
     @Test
     void calculateFareVehicleWithLessThanThirtyMinutesParkingTime() {
@@ -152,6 +152,6 @@ public class FareCalculatorServiceTest {
         ticket.setParkingSpot(parkingSpot);
         ticket.setDiscount(discount);
         fareCalculatorService.calculateFare(ticket);
-        assertEquals((hours * Fare.CAR_RATE_PER_HOUR *  discount), ticket.getPrice());
+        assertEquals((Math.round((hours * Fare.CAR_RATE_PER_HOUR * discount) * 100.0) / 100.0), ticket.getPrice());
     }
 }

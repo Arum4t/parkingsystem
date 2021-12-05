@@ -14,25 +14,30 @@ import java.util.concurrent.TimeUnit;
 <span class="fc" id="L14">        long inTime = ticket.getInTime().getTime();</span>
 <span class="fc" id="L15">        long outTime = ticket.getOutTime().getTime();</span>
 
-<span class="fc" id="L17">       double durationTime = (double) outTime - (double) inTime;</span>
-<span class="fc" id="L18">       double duration = ((durationTime / 1000)/60/60);</span>
+<span class="fc" id="L17">        double durationTime = (double) outTime - (double) inTime;</span>
+<span class="fc" id="L18">        double duration = ((durationTime / 1000)/60/60);</span>
 
 <span class="fc bfc" id="L20" title="All 2 branches covered.">        if (duration &lt; 0.5) {</span>
 <span class="fc" id="L21">            ticket.setPrice(0);</span>
-        } else {
-            double rate;
-<span class="pc bpc" id="L24" title="1 of 3 branches missed.">            switch (ticket.getParkingSpot().getParkingType()) {</span>
-                case CAR:
-<span class="fc" id="L26">                    rate = Fare.CAR_RATE_PER_HOUR;</span>
-<span class="fc" id="L27">                    break;</span>
-                case BIKE:
-<span class="fc" id="L29">                    rate = Fare.BIKE_RATE_PER_HOUR;</span>
-<span class="fc" id="L30">                    break;</span>
-                default:
-<span class="nc" id="L32">                    throw new IllegalArgumentException(&quot;Unknown Parking Type&quot;);</span>
-            }
-<span class="fc" id="L34">            ticket.setPrice(duration * rate * (1-0.01*ticket.getDiscount()));</span>
+<span class="fc" id="L22">            return;</span>
         }
-<span class="fc" id="L36">    }</span>
+            double rate, price;
+<span class="pc bpc" id="L25" title="1 of 3 branches missed.">            switch (ticket.getParkingSpot().getParkingType()) {</span>
+                case CAR:
+<span class="fc" id="L27">                    rate = Fare.CAR_RATE_PER_HOUR;</span>
+<span class="fc" id="L28">                    break;</span>
+                case BIKE:
+<span class="fc" id="L30">                    rate = Fare.BIKE_RATE_PER_HOUR;</span>
+<span class="fc" id="L31">                    break;</span>
+                default:
+<span class="nc" id="L33">                    throw new IllegalArgumentException(&quot;Unknown Parking Type&quot;);</span>
+            }
+<span class="fc" id="L35">            price = duration * rate;</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">            if (ticket.getDiscount() == 0.0){</span>
+<span class="fc" id="L37">                ticket.setPrice(Math.round(price * 100.0) / 100.0);</span>
+<span class="fc" id="L38">                return;</span>
+            }
+<span class="fc" id="L40">            ticket.setPrice((Math.round(price * 100.0) / 100.0) * ticket.getDiscount());</span>
+<span class="fc" id="L41">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

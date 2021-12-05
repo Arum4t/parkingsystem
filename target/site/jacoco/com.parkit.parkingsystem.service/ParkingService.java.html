@@ -31,12 +31,12 @@ public class ParkingService {
         try{
 <span class="nc" id="L32">            ParkingSpot parkingSpot = getNextParkingNumberIfAvailable();</span>
 <span class="nc bnc" id="L33" title="All 4 branches missed.">            if(parkingSpot !=null &amp;&amp; parkingSpot.getId() &gt; 0){</span>
-<span class="nc" id="L34">                final String vehicleRegNumber = getVehicleRegNumber();</span>
-<span class="nc" id="L35">                final int oldTicketsNumber = ticketDAO.countAlreadyExistVehicleRegNumber(vehicleRegNumber);</span>
+<span class="nc" id="L34">                String vehicleRegNumber = getVehicleRegNumber();</span>
+<span class="nc" id="L35">                Ticket oldTicketsNumber = ticketDAO.getTicket(vehicleRegNumber);</span>
 <span class="nc" id="L36">                parkingSpot.setAvailable(false);</span>
 <span class="nc" id="L37">                parkingSpotDAO.updateParking(parkingSpot);//allot this parking space and mark it's availability as false</span>
-<span class="nc" id="L38">                final Date inTime = new Date();</span>
-<span class="nc" id="L39">                final Ticket ticket = new Ticket();</span>
+<span class="nc" id="L38">                Date inTime = new Date();</span>
+<span class="nc" id="L39">                Ticket ticket = new Ticket();</span>
                 //ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
                 //ticket.setId(ticketID);
 <span class="nc" id="L42">                ticket.setParkingSpot(parkingSpot);</span>
@@ -44,10 +44,10 @@ public class ParkingService {
 <span class="nc" id="L44">                ticket.setPrice(0);</span>
 <span class="nc" id="L45">                ticket.setInTime(inTime);</span>
 <span class="nc" id="L46">                ticket.setOutTime(null);</span>
-<span class="nc bnc" id="L47" title="All 2 branches missed.">                ticket.setDiscount((oldTicketsNumber &gt;0 ) ? 5 : 0);</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">                ticket.setDiscount(oldTicketsNumber == null ? 0 : 0.95);</span>
 <span class="nc" id="L48">                ticketDAO.saveTicket(ticket);</span>
 <span class="nc" id="L49">                System.out.println(&quot;Generated Ticket and saved in DB&quot;);</span>
-<span class="nc bnc" id="L50" title="All 2 branches missed.">                if (oldTicketsNumber &gt;0){</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">                if (oldTicketsNumber != null){</span>
 <span class="nc" id="L51">                    System.out.println(&quot;As recurring user you'll benefit from a 5% discount.&quot;);}</span>
 <span class="nc" id="L52">                System.out.println(&quot;Please park your vehicle in spot number:&quot;+parkingSpot.getId());</span>
 <span class="nc" id="L53">                System.out.println(&quot;Recorded in-time for vehicle number:&quot;+vehicleRegNumber+&quot; is:&quot;+inTime);</span>

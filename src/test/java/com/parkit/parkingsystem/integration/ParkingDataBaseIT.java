@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -64,10 +65,11 @@ public class ParkingDataBaseIT {
     public void testParkingLotExit() throws InterruptedException {
         testParkingACar();
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+        Thread.sleep(2000);
         parkingService.processExitingVehicle();
-        Ticket ticketFareAndTimeNotNull = ticketDAO.getTicket("ABCDEF");
-        Assertions.assertNotNull(ticketFareAndTimeNotNull.getOutTime());
-        Assertions.assertNotEquals(0.0, ticketFareAndTimeNotNull.getPrice());
+        Ticket ticket = ticketDAO.getTicket("ABCDEF");
+        Assertions.assertNotNull(ticket.getOutTime());
+        Assertions.assertEquals(0.0, ticket.getPrice());
     }
 }
 
