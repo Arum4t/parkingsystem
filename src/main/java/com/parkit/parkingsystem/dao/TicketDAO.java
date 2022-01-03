@@ -8,11 +8,7 @@ import com.parkit.parkingsystem.model.Ticket;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
-import java.util.NoSuchElementException;
+import java.sql.*;
 
 public class TicketDAO {
 
@@ -20,11 +16,12 @@ public class TicketDAO {
 
     public DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
-    public boolean saveTicket(Ticket ticket){
+    public void saveTicket(Ticket ticket) throws SQLException {
         Connection con = null;
+        PreparedStatement ps = null;
         try {
             con = dataBaseConfig.getConnection();
-            PreparedStatement ps = con.prepareStatement(DBConstants.SAVE_TICKET);
+            ps = con.prepareStatement(DBConstants.SAVE_TICKET);
             //ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
             //ps.setInt(1,ticket.getId());
             ps.setInt(1,ticket.getParkingSpot().getId());
@@ -32,12 +29,13 @@ public class TicketDAO {
             ps.setDouble(3, ticket.getPrice());
             ps.setTimestamp(4, new Timestamp(ticket.getInTime().getTime()));
             ps.setTimestamp(5, (ticket.getOutTime() == null)?null: (new Timestamp(ticket.getOutTime().getTime())) );
-            return ps.execute();
+            ps.execute();
         }catch (Exception ex){
             logger.error("Error fetching next available slot",ex);
         }finally {
             dataBaseConfig.closeConnection(con);
-            return false;
+            assert ps != null;
+            ps.close();
         }
     }
 
@@ -66,8 +64,8 @@ public class TicketDAO {
             logger.error("Error fetching next available slot",ex);
         }finally {
             dataBaseConfig.closeConnection(con);
-            return ticket;
         }
+        return ticket;
     }
 
     public boolean updateTicket(Ticket ticket) {
@@ -86,26 +84,5 @@ public class TicketDAO {
             dataBaseConfig.closeConnection(con);
         }
         return false;
-    }
-    public int countAlreadyExistVehicleRegNumber(final String vehicleRegNumber) throws Exception {
-        final int result;
-        try (Connection con = dataBaseConfig.getConnection()) {
-            final PreparedStatement ps = con.prepareStatement(
-                    "SELECT COUNT(*) as quantity FROM ticket WHERE ticket.VEHICLE_REG_NUMBER = ?"
-            );
-            ps.setString(1, vehicleRegNumber);
-            final ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                result = rs.getInt("quantity");
-            } else {
-                throw new NoSuchElementException("Empty ResultSet");
-            }
-        }catch (Exception ex){
-            logger.error("Error counting tickets by Vehicle Reg Number",ex);
-            throw new Exception("Error counting tickets by Vehicle Reg Number", ex);
-        }finally {
-            dataBaseConfig.closeConnection(dataBaseConfig.getConnection());
-        }
-        return result;
     }
 }
