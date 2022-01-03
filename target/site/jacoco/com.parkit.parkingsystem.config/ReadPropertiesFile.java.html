@@ -12,28 +12,39 @@ public class ReadPropertiesFile {
 
 <span class="nc" id="L13">    public ReadPropertiesFile() throws IOException {</span>
 
-<span class="nc" id="L15">        try(FileInputStream fis = new FileInputStream(&quot;src/main/resources/config.properties&quot;)){</span>
-<span class="nc" id="L16">            this.properties.load(fis);</span>
-<span class="nc" id="L17">        } catch (Exception ex){</span>
+        /*
 
-<span class="nc" id="L19">        }</span>
+        FileInputStream fis = new FileInputStream(&quot;src/main/resources/config.properties&quot;);
 
-<span class="nc" id="L21">    }</span>
+        this.properties = new Properties();
+
+        properties.load(fis);
+
+        fis.close();
+    }
+    */
+<span class="nc" id="L26">        try (FileInputStream fis = new FileInputStream(&quot;src/main/resources/config.properties&quot;)) {</span>
+<span class="nc" id="L27">            this.properties = new Properties();</span>
+<span class="nc" id="L28">            properties.load(fis);</span>
+<span class="nc" id="L29">        } catch (Exception ex) {</span>
+<span class="nc" id="L30">            System.err.println(&quot;Caught IOException: &quot; + ex.getMessage());</span>
+<span class="nc" id="L31">        }</span>
+<span class="nc" id="L32">    }</span>
 
     public String getUsername () {
 
-<span class="nc" id="L25">        return this.properties.getProperty(&quot;username&quot;);</span>
+<span class="nc" id="L36">        return this.properties.getProperty(&quot;username&quot;);</span>
     }
     public String getPassword () {
 
-<span class="nc" id="L29">        return this.properties.getProperty(&quot;password&quot;);</span>
+<span class="nc" id="L40">        return this.properties.getProperty(&quot;password&quot;);</span>
     }
     public String getUrl1 () {
 
-<span class="nc" id="L33">        return this.properties.getProperty(&quot;url1&quot;);</span>
+<span class="nc" id="L44">        return this.properties.getProperty(&quot;url1&quot;);</span>
     }
     public String getUrl2 () {
-<span class="nc" id="L36">        return this.properties.getProperty(&quot;url2&quot;);</span>
+<span class="nc" id="L47">        return this.properties.getProperty(&quot;url2&quot;);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

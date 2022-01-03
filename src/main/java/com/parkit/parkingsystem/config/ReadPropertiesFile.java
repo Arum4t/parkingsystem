@@ -12,12 +12,13 @@ public class ReadPropertiesFile {
 
     public ReadPropertiesFile() throws IOException {
 
-        try(FileInputStream fis = new FileInputStream("src/main/resources/config.properties")){
-            this.properties.load(fis);
-        } catch (Exception ex){
 
+        try (FileInputStream fis = new FileInputStream("src/main/resources/config.properties")) {
+            this.properties = new Properties();
+            properties.load(fis);
+        } catch (Exception ex) {
+            System.err.println("Caught IOException: " + ex.getMessage());
         }
-
     }
 
     public String getUsername () {
