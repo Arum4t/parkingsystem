@@ -13,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -52,7 +53,7 @@ public class ParkingDataBaseIT {
     }
 
     @Test
-    public void testParkingACar() {
+    public void testParkingACar() throws SQLException {
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processIncomingVehicle();
         TicketDAO ticket = new TicketDAO();
@@ -62,7 +63,7 @@ public class ParkingDataBaseIT {
     }
 
     @Test
-    public void testParkingLotExit() throws InterruptedException {
+    public void testParkingLotExit() throws InterruptedException, SQLException {
         testParkingACar();
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         Thread.sleep(2000);

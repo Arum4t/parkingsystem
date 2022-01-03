@@ -2,16 +2,12 @@ package com.parkit.parkingsystem.config;
 
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
 
 public class ReadPropertiesFile {
 
-    private String username;
-    private String password;
-    private String url1;
     private Properties properties;
 
     public ReadPropertiesFile() throws IOException {
@@ -26,12 +22,15 @@ public class ReadPropertiesFile {
     }
 
     public String getUsername () {
+
         return this.properties.getProperty("username");
     }
     public String getPassword () {
+
         return this.properties.getProperty("password");
     }
     public String getUrl1 () {
+
         return this.properties.getProperty("url1");
     }
     public String getUrl2 () {
