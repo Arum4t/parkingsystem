@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReadPropertiesFile.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">parking-system</a> &gt; <a href="index.source.html" class="el_package">com.parkit.parkingsystem.config</a> &gt; <span class="el_source">ReadPropertiesFile.java</span></div><h1>ReadPropertiesFile.java</h1><pre class="source lang-java linenums">package com.parkit.parkingsystem.config;
+
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+
+<span class="nc" id="L9">public class ReadPropertiesFile {</span>
+
+    public static void readProperty(String readProperty) throws IOException {
+
+<span class="nc" id="L13">        FileInputStream fis = new FileInputStream(&quot;src/main/resources/config.properties&quot;);</span>
+
+<span class="nc" id="L15">        Properties properties = new Properties();</span>
+
+<span class="nc" id="L17">        properties.load(fis);</span>
+
+<span class="nc" id="L19">    }</span>
+    public String getUsername () {
+<span class="nc" id="L21">        Properties username = new Properties();</span>
+<span class="nc" id="L22">        return username.getProperty(&quot;username&quot;);</span>
+    }
+    public String getPassword () {
+<span class="nc" id="L25">        Properties password = new Properties();</span>
+<span class="nc" id="L26">        return password.getProperty(&quot;password&quot;);</span>
+    }
+    public String getUrl1 () {
+<span class="nc" id="L29">        Properties url1 = new Properties();</span>
+<span class="nc" id="L30">        return url1.getProperty(&quot;url1&quot;);</span>
+    }
+    public String getUrl2 () {
+<span class="nc" id="L33">        Properties url2 = new Properties();</span>
+<span class="nc" id="L34">        return url2.getProperty(&quot;url2&quot;);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
