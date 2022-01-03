@@ -23,6 +23,7 @@ public class DataBaseConfig {
 
         logger.info("Create DB connection");
         Class.forName("com.mysql.cj.jdbc.Driver");
+        assert readPropertiesFile != null;
         return DriverManager.getConnection(
                 readPropertiesFile.getUrl1(),readPropertiesFile.getUsername(),readPropertiesFile.getPassword());
     }
