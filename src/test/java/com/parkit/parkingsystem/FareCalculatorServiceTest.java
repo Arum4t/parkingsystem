@@ -138,7 +138,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    void calculateFivePerCentDiscountForRecurringUsers() throws Exception {
+    void calculateFivePerCentDiscountForRecurringUsers() {
         int hours = 1;
         int discount = 5;
         Date inTime = new Date();

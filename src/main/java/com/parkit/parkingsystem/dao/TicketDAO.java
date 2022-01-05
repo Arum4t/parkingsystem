@@ -16,7 +16,7 @@ public class TicketDAO {
 
     public DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
-    public void saveTicket(Ticket ticket) throws SQLException {
+    public boolean saveTicket(Ticket ticket) throws SQLException {
         Connection con = null;
         PreparedStatement ps = null;
         try {
@@ -37,6 +37,7 @@ public class TicketDAO {
             assert ps != null;
             ps.close();
         }
+        return false;
     }
 
     public Ticket getTicket(String vehicleRegNumber) throws SQLException {
